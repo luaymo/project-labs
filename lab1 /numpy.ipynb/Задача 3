@@ -1,0 +1,49 @@
+import numpy as np
+
+def unique_rows(mat):
+    """
+    Returns unique elements from each row of the matrix.
+
+    Parameters:
+    mat (np.ndarray): Input matrix.
+
+    Returns:
+    list: List of numpy arrays containing unique elements for each row.
+    """
+    return [np.unique(row) for row in mat]
+
+def unique_columns(mat):
+    """
+    Returns unique elements from each column of the matrix.
+
+    Parameters:
+    mat (np.ndarray): Input matrix.
+
+    Returns:
+    list: List of numpy arrays containing unique elements for each column.
+    """
+    return [np.unique(mat[:, col]) for col in range(mat.shape[1])]
+
+# Unit tests for unique_rows and unique_columns
+import unittest
+
+class TestUniqueElements(unittest.TestCase):
+    def setUp(self):
+        self.mat = np.array([[1, 2, 2],
+                             [4, 4, 4],
+                             [6, 6, 7]])
+
+    def test_unique_rows(self):
+        expected_rows = [np.array([1, 2]), np.array([4]), np.array([6, 7])]
+        result = unique_rows(self.mat)
+        for res, exp in zip(result, expected_rows):
+            np.testing.assert_array_equal(res, exp)
+
+    def test_unique_columns(self):
+        expected_columns = [np.array([1, 4, 6]), np.array([2, 4, 6]), np.array([2, 4, 7])]
+        result = unique_columns(self.mat)
+        for res, exp in zip(result, expected_columns):
+            np.testing.assert_array_equal(res, exp)
+
+if __name__ == '__main__':
+    unittest.main()
