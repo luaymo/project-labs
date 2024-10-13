@@ -1,0 +1,48 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def fill_and_analyze_matrix(m, n):
+    """
+    Fills a matrix of size (m, n) with normally distributed random numbers,
+    computes the mean and variance for each row and column, and
+    plots histograms of the values for each row and column.
+
+    Parameters:
+    m (int): Number of rows.
+    n (int): Number of columns.
+    """
+    # Generate the matrix
+    matrix = np.random.randn(m, n)
+
+    # Calculate means and variances
+    row_means = np.mean(matrix, axis=1)
+    column_means = np.mean(matrix, axis=0)
+    row_variances = np.var(matrix, axis=1)
+    column_variances = np.var(matrix, axis=0)
+
+    # Output the computed statistics
+    print("Row Means:", row_means)
+    print("Column Means:", column_means)
+    print("Row Variances:", row_variances)
+    print("Column Variances:", column_variances)
+
+    # Plot histograms for rows
+    plt.figure(figsize=(12, 6))
+    for i, row in enumerate(matrix):
+        plt.subplot(1, m, i + 1)
+        plt.hist(row, bins=10, alpha=0.75)
+        plt.title(f'Row {i+1} Histogram')
+    plt.tight_layout()
+    plt.show()
+
+    # Plot histograms for columns
+    plt.figure(figsize=(12, 6))
+    for j in range(n):
+        plt.subplot(1, n, j + 1)
+        plt.hist(matrix[:, j], bins=10, alpha=0.75)
+        plt.title(f'Column {j+1} Histogram')
+    plt.tight_layout()
+    plt.show()
+
+# Example usage
+fill_and_analyze_matrix(3, 4)
