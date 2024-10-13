@@ -1,0 +1,64 @@
+from PIL import Image, ImageDraw
+
+def draw_rectangle(a, b, m, n, rectangle_color, background_color):
+    """
+    Draws a rectangle on an image.
+
+    Parameters:
+    a, b (int): Width and height of the rectangle.
+    m, n (int): Dimensions of the image.
+    rectangle_color (tuple): Color of the rectangle (R, G, B).
+    background_color (tuple): Background color of the image (R, G, B).
+    """
+    # Create an image with the background color
+    image = Image.new("RGB", (m, n), background_color)
+    draw = ImageDraw.Draw(image)
+    # Calculate the top left corner of the rectangle
+    x0 = (m - a) // 2
+    y0 = (n - b) // 2
+    # Draw the rectangle
+    draw.rectangle([x0, y0, x0 + a, y0 + b], fill=rectangle_color)
+    return image
+
+def draw_ellipse(a, b, m, n, ellipse_color, background_color):
+    """
+    Draws an ellipse on an image.
+
+    Parameters:
+    a, b (int): Horizontal and vertical radii of the ellipse.
+    m, n (int): Dimensions of the image.
+    ellipse_color (tuple): Color of the ellipse (R, G, B).
+    background_color (tuple): Background color of the image (R, G, B).
+    """
+    # Create an image with the background color
+    image = Image.new("RGB", (m, n), background_color)
+    draw = ImageDraw.Draw(image)
+    # Calculate the bounding box of the ellipse
+    x0 = (m - 2 * a) // 2
+    y0 = (n - 2 * b) // 2
+    # Draw the ellipse
+    draw.ellipse([x0, y0, x0 + 2 * a, y0 + 2 * b], fill=ellipse_color)
+    return image
+
+# Unit tests for the drawing functions
+import unittest
+
+class TestDrawingFunctions(unittest.TestCase):
+    def test_draw_rectangle(self):
+        # Check the size of the created image
+        image = draw_rectangle(100, 50, 300, 200, (255, 0, 0), (0, 0, 0))
+        self.assertEqual(image.size, (300, 200))
+        # Check if the rectangle color is correctly applied
+        rect_color = image.getpixel((150, 100))  # A point inside the rectangle
+        self.assertEqual(rect_color, (255, 0, 0))
+
+    def test_draw_ellipse(self):
+        # Check the size of the created image
+        image = draw_ellipse(50, 100, 300, 200, (0, 255, 0), (0, 0, 0))
+        self.assertEqual(image.size, (300, 200))
+        # Check if the ellipse color is correctly applied
+        ellipse_color = image.getpixel((150, 100))  # A point inside the ellipse
+        self.assertEqual(ellipse_color, (0, 255, 0))
+
+if __name__ == '__main__':
+    unittest.main()
