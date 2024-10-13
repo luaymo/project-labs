@@ -1,0 +1,13 @@
+# Чтение данных из файла 'titanic.csv'
+data = pd.read_csv('/mnt/data/titanic (1).csv')
+
+# Вывод первых 5 строк данных
+print(data.head())
+
+# Информация о данных
+print(data.info())
+
+# Проверка на наличие NaN в DataFrame и их обработка
+print(data.isna().sum())
+data_filled = data.fillna(0)  # Заполнение NaN нулями
+data_cleaned = data.dropna()  # Удаление строк с NaN
