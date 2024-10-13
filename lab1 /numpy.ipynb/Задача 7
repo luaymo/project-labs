@@ -1,0 +1,49 @@
+import numpy as np
+from scipy.signal import argrelextrema
+
+def time_series_analysis(data, window_size):
+    """
+    Analyzes the given time series data.
+
+    Parameters:
+    data (list or np.ndarray): The time series data.
+    window_size (int): The window size for computing the moving average.
+
+    Returns:
+    dict: Dictionary containing the analysis results: mean, variance, 
+          standard deviation, local maxima, local minima, and moving average.
+    """
+    data = np.array(data)
+
+    # Mean, variance, and standard deviation
+    mean = np.mean(data)
+    variance = np.var(data)
+    std_dev = np.std(data)
+
+    # Find local maxima and minima
+    local_maxima = argrelextrema(data, np.greater)[0]
+    local_minima = argrelextrema(data, np.less)[0]
+
+    # Compute moving average with window size p
+    moving_avg = np.convolve(data, np.ones(window_size), 'valid') / window_size
+
+    return {
+        'mean': mean,
+        'variance': variance,
+        'std_dev': std_dev,
+        'local_maxima': local_maxima,
+        'local_minima': local_minima,
+        'moving_average': moving_avg
+    }
+
+# Example usage:
+data = [1, 3, 7, 1, 2, 6, 0, 1, 5, 7, 6, 2]
+window_size = 3
+results = time_series_analysis(data, window_size)
+
+print("Mean:", results['mean'])
+print("Variance:", results['variance'])
+print("Standard Deviation:", results['std_dev'])
+print("Local Maxima Indices:", results['local_maxima'])
+print("Local Minima Indices:", results['local_minima'])
+print("Moving Average:", results['moving_average'])
