@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Разделение данных по полу
+men_df = brain_frame[brain_frame['Gender'] == 'Male']
+women_df = brain_frame[brain_frame['Gender'] == 'Female']
+
+# Вычисление среднего интеллекта и создание графиков рассеяния
+men_mean_smarts = men_df[['FSIQ', 'VIQ', 'PIQ']].mean(axis=1)
+women_mean_smarts = women_df[['FSIQ', 'VIQ', 'PIQ']].mean(axis=1)
+
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.scatter(men_mean_smarts, men_df['MRI_Count'], color='blue', label='Men')
+plt.title('Scatter plot for Men: Average Intelligence vs. MRI Count')
+plt.xlabel('Average Intelligence')
+plt.ylabel('MRI Count')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.scatter(women_mean_smarts, women_df['MRI_Count'], color='red', label='Women')
+plt.title('Scatter plot for Women: Average Intelligence vs. MRI Count')
+plt.xlabel('Average Intelligence')
+plt.ylabel('MRI Count')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
