@@ -1,0 +1,53 @@
+import numpy as np
+
+def sum_prod(X, V):
+    """
+    Sum the products of matrices and vectors.
+
+    Parameters:
+    X (list of np.ndarray): List of (n, n) matrices.
+    V (list of np.ndarray): List of (n, 1) vectors.
+
+    Returns:
+    np.ndarray: Sum of matrix-vector products.
+    """
+    total_sum = np.zeros(V[0].shape)
+    for matrix, vector in zip(X, V):
+        total_sum += np.dot(matrix, vector)
+    return total_sum
+
+# Unit tests for sum_prod
+import unittest
+
+class TestSumProd(unittest.TestCase):
+    def test_sum_prod(self):
+        # Test case with 3x3 matrices and 3x1 vectors
+        X = [
+            np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+            np.array([[2, 3, 4], [5, 6, 7], [8, 9, 10]]),
+            np.array([[3, 4, 5], [6, 7, 8], [9, 10, 11]])
+        ]
+        V = [
+            np.array([[1], [2], [3]]),
+            np.array([[4], [5], [6]]),
+            np.array([[7], [8], [9]])
+        ]
+        expected = np.array([[468], [576], [684]])
+        np.testing.assert_array_equal(sum_prod(X, V), expected)
+
+    def test_empty_input(self):
+        # Test case with empty lists
+        X = []
+        V = []
+        expected = np.array([])
+        self.assertEqual(sum_prod(X, V).size, expected.size)
+
+    def test_single_matrix_vector(self):
+        # Test case with a single matrix and vector
+        X = [np.array([[1, 2], [3, 4]])]
+        V = [np.array([[1], [2]])]
+        expected = np.array([[5], [11]])
+        np.testing.assert_array_equal(sum_prod(X, V), expected)
+
+if __name__ == '__main__':
+    unittest.main()
