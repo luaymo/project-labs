@@ -1,0 +1,18 @@
+# Выбор столбца по метке
+column = data['Age']
+
+# Выбор нескольких столбцов
+columns = data[['Age', 'Fare']]
+
+# Выбор строк по индексу
+row = data.loc[5]
+
+# Выбор строк и столбцов по условию (мужчины старше 30)
+selected_data = data[(data['Sex'] == 'male') & (data['Age'] > 30)]
+
+# Сортировка данных по столбцу 'Fare' по возрастанию
+sorted_data = data.sort_values(by='Fare')
+
+# Группировка данных и агрегация
+grouped_data = data.groupby('Pclass')['Survived'].mean()
+print(grouped_data)
