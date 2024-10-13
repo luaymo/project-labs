@@ -1,0 +1,53 @@
+import numpy as np
+
+def binarize(M, threshold=0.5):
+    """
+    Binarizes a matrix M based on a threshold.
+
+    Parameters:
+    M (np.ndarray): The matrix to binarize.
+    threshold (float, optional): The threshold to use for binarization.
+
+    Returns:
+    np.ndarray: The binarized matrix.
+    """
+    return np.where(M > threshold, 1, 0)
+
+# Unit tests for binarize
+import unittest
+
+class TestBinarize(unittest.TestCase):
+    def test_binarize(self):
+        # Test case with a 3x3 matrix
+        M = np.array([[0.2, 0.6, 0.8],
+                      [0.4, 0.5, 0.1],
+                      [0.7, 0.3, 0.9]])
+        threshold = 0.5
+        expected = np.array([[0, 1, 1],
+                             [0, 0, 0],
+                             [1, 0, 1]])
+        np.testing.assert_array_equal(binarize(M, threshold), expected)
+
+    def test_default_threshold(self):
+        # Test case using the default threshold
+        M = np.array([[0.2, 0.6, 0.8],
+                      [0.4, 0.3, 0.1],
+                      [0.7, 0.3, 0.9]])
+        expected = np.array([[0, 1, 1],
+                             [0, 0, 0],
+                             [1, 0, 1]])
+        np.testing.assert_array_equal(binarize(M), expected)
+
+    def test_high_threshold(self):
+        # Test case with a high threshold
+        M = np.array([[0.2, 0.6, 0.8],
+                      [0.4, 0.5, 0.1],
+                      [0.7, 0.3, 0.9]])
+        threshold = 0.8
+        expected = np.array([[0, 0, 0],
+                             [0, 0, 0],
+                             [0, 0, 1]])
+        np.testing.assert_array_equal(binarize(M, threshold), expected)
+
+if __name__ == '__main__':
+    unittest.main()
