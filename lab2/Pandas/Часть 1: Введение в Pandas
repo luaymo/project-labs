@@ -1,0 +1,2 @@
+# Импорт библиотеки Pandas
+import pandas as pd
