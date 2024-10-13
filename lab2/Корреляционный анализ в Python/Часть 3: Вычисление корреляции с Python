@@ -1,0 +1,4 @@
+# Расчёт корреляции для всего набора данных, мужчин и женщин
+overall_corr = brain_frame.corr()
+men_corr = men_df.corr()
+women_corr = women_df.corr()
