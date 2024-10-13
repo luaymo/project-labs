@@ -1,0 +1,19 @@
+import seaborn as sns
+
+sns.set(style="white")
+
+plt.figure(figsize=(18, 10))
+plt.subplot(1, 3, 1)
+sns.heatmap(overall_corr, annot=True, fmt=".2f", cmap='coolwarm', cbar=True)
+plt.title('Overall Correlation')
+
+plt.subplot(1, 3, 2)
+sns.heatmap(men_corr, annot=True, fmt=".2f", cmap='coolwarm', cbar=True)
+plt.title('Men Correlation')
+
+plt.subplot(1, 3, 3)
+sns.heatmap(women_corr, annot=True, fmt=".2f", cmap='coolwarm', cbar=True)
+plt.title('Women Correlation')
+
+plt.tight_layout()
+plt.show()
