@@ -1,0 +1,53 @@
+import numpy as np
+
+def chess(m, n, a, b):
+    """
+    Creates a matrix with a checkerboard pattern using values 'a' and 'b'.
+
+    Parameters:
+    m (int): Number of rows in the matrix.
+    n (int): Number of columns in the matrix.
+    a (int or float): Value to fill on one color of the checkerboard.
+    b (int or float): Value to fill on the other color of the checkerboard.
+
+    Returns:
+    np.ndarray: Checkerboard matrix.
+    """
+    matrix = np.zeros((m, n))
+    matrix[::2, ::2] = a
+    matrix[1::2, 1::2] = a
+    matrix[::2, 1::2] = b
+    matrix[1::2, ::2] = b
+    return matrix
+
+# Unit tests for the chess function
+import unittest
+
+class TestChessPattern(unittest.TestCase):
+    def test_chess_pattern_even(self):
+        m, n, a, b = 4, 4, 1, 2
+        expected = np.array([[1, 2, 1, 2],
+                             [2, 1, 2, 1],
+                             [1, 2, 1, 2],
+                             [2, 1, 2, 1]])
+        np.testing.assert_array_equal(chess(m, n, a, b), expected)
+
+    def test_chess_pattern_odd(self):
+        m, n, a, b = 3, 5, 0, 3
+        expected = np.array([[0, 3, 0, 3, 0],
+                             [3, 0, 3, 0, 3],
+                             [0, 3, 0, 3, 0]])
+        np.testing.assert_array_equal(chess(m, n, a, b), expected)
+
+    def test_chess_pattern_single_row(self):
+        m, n, a, b = 1, 4, 5, 6
+        expected = np.array([[5, 6, 5, 6]])
+        np.testing.assert_array_equal(chess(m, n, a, b), expected)
+
+    def test_chess_pattern_single_column(self):
+        m, n, a, b = 4, 1, 7, 8
+        expected = np.array([[7], [8], [7], [8]])
+        np.testing.assert_array_equal(chess(m, n, a, b), expected)
+
+if __name__ == '__main__':
+    unittest.main()
